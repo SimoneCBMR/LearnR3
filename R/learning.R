@@ -75,3 +75,17 @@ NHANES_small %>%
   select(starts_with("bp_")) %>%
   rename(bp_systolic = bp_sys_ave)
 
+
+# Filtering
+NHANES_small %>%
+    filter(phys_active == "No")
+
+NHANES_small %>%
+    filter(bmi >= 25)
+
+# Combining logical operators
+NHANES_small %>%
+    filter(bmi >= 25 & phys_active == "No")
+
+NHANES_small %>%
+    filter(bmi >= 25 | phys_active == "No")
