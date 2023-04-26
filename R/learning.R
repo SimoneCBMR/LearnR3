@@ -78,14 +78,31 @@ NHANES_small %>%
 
 # Filtering
 NHANES_small %>%
-    filter(phys_active == "No")
+  filter(phys_active == "No")
 
 NHANES_small %>%
-    filter(bmi >= 25)
+  filter(bmi >= 25)
 
 # Combining logical operators
 NHANES_small %>%
-    filter(bmi >= 25 & phys_active == "No")
+  filter(bmi >= 25 & phys_active == "No")
 
 NHANES_small %>%
-    filter(bmi >= 25 | phys_active == "No")
+  filter(bmi >= 25 | phys_active == "No")
+
+# Arrange data
+NHANES_small %>%
+  arrange(desc(age))
+
+NHANES_small %>%
+  arrange(education, age)
+
+# Transforming data
+NHANES_small %>%
+  mutate(
+    age = age * 12,
+    logged_bmi = log(bmi)
+  )
+
+NHANES_small %>%
+  mutate(old = if_else(age >= 30, "Yes", "No"))
