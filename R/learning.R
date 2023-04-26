@@ -120,3 +120,22 @@ nhanes_modified <- NHANES_small %>%
         young_child = if_else(age<6, "Yes", "No")
     )
 nhanes_modified
+
+
+# Creating Summary Statistics ---------------------------------------------
+
+NHANES_small %>%
+    summarise(max_bmi = max(bmi, na.rm = TRUE),
+              min_bmi = min(bmi, na.rm = TRUE))
+
+#split-apply-combine
+NHANES_small %>%
+    filter(!is.na(diabetes)) %>%
+    group_by(diabetes) %>%
+    summarise(mean_age = mean(age, na.rm = TRUE),
+              mean_bmi = mean(bmi, na.rm = TRUE)) %>%
+    ungroup()
+
+# Saving data
+readr::write_csv(NHANES_small,
+                 here::here("data/nhanes_small.csv"))
