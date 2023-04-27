@@ -140,3 +140,9 @@ NHANES_small %>%
 readr::write_csv(NHANES_small,
                  here::here("data/nhanes_small.csv"))
 
+
+# Visualising data --------------------------------------------------------
+
+#One variable plots
+
+
