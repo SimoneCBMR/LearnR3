@@ -17,7 +17,6 @@ library(NHANES)
 nhanes_small <- read_csv(here::here("data/nhanes_small.csv"))
 ```
 
-
 ```{r}
 nhanes_small
 ```
@@ -29,8 +28,72 @@ nhanes_small %>%
   filter(!is.na(diabetes), !is.na(education)) %>%
   group_by(diabetes, education) %>%
   summarise(
-      mean_age = mean(age, na.rm = TRUE), 
-      mean_bmi = mean(bmi, na.rm = TRUE)) %>%
+    mean_age = mean(age, na.rm = TRUE),
+    mean_bmi = mean(bmi, na.rm = TRUE)
+  ) %>%
   ungroup() %>%
   knitr::kable(caption = "Mean values of Age and BMI for education and diabetes status")
 ```
+
+#Visualising data
+
+###One variable plots
+
+```{r}
+# Create histogram for BMI
+#| fig-cap: "Distribution of BMI."
+#| label: fig-bmi-histo
+nhanes_small %>%
+  filter(bmi <= 60) %>%
+  ggplot(aes(x = bmi)) +
+  geom_histogram(na.rm = TRUE)
+```
+
+```{r}
+# Create count barplot for education
+ggplot(nhanes_small, aes(x = education)) +
+  geom_bar()
+```
+
+```{r}
+# Create count barplot for diabetes status
+ggplot(nhanes_small, aes(x = diabetes)) +
+  geom_bar()
+```
+
+```{r}
+nhanes_small %>%
+  filter(!is.na(diabetes)) %>%
+  ggplot(aes(x = diabetes)) +
+  geom_bar()
+```
+
+```{r}
+nhanes_small %>%
+  filter(!is.na(education)) %>%
+  ggplot(aes(x = education)) +
+  geom_bar()
+```
+
+```{r}
+#| label: fig-diabetes-education
+#| fig-cap: "Counts of Diabetes and Education."
+#| fig-subcap:
+#|   - "Number of those with or without Diabetes."
+#|   - "Number of those with different educational status."
+#| layout-ncol: 2
+nhanes_small %>%
+  filter(!is.na(diabetes)) %>%
+  ggplot(aes(x = diabetes)) +
+  geom_bar()
+
+nhanes_small %>%
+  filter(!is.na(education)) %>%
+  ggplot(aes(x = education)) +
+  geom_bar()
+```
+
+
+
+
+

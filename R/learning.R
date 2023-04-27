@@ -139,3 +139,4 @@ NHANES_small %>%
 # Saving data
 readr::write_csv(NHANES_small,
                  here::here("data/nhanes_small.csv"))
+
